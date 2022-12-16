@@ -1,14 +1,10 @@
-//Nessa class vou estar dizendo quais são os campos que a nossa requisição
-
+//Nessa class vou estar dizendo quais são os campos que a nossa requisição deve ter.
 import { IsNotEmpty, IsUUID, Length } from 'class-validator';
 
-//deve ter.
 export class CreateNotificationBody {
-  @IsNotEmpty({
-    message: 'O recipientId é obrigatório.',
-  })
+  @IsNotEmpty()
   @IsUUID()
-  recipientId: string;
+  recipientId!: string;
 
   @IsNotEmpty({
     message: 'A content é obrigatório.',
@@ -16,10 +12,10 @@ export class CreateNotificationBody {
   @Length(5, 240, {
     message: 'O content deve ser ter no mínimo 5 e no maximo 240 caracteres.',
   })
-  content: string;
+  content!: string;
 
   @IsNotEmpty({
     message: 'A category é obrigatório.',
   })
-  category: string;
+  category!: string;
 }
