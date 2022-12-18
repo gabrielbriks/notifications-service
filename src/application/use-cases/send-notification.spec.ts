@@ -1,19 +1,12 @@
 import { randomUUID } from 'crypto';
-import { Notification } from '../entities/notification/notification';
+import { InMemoryNotificationsRepository } from '../../../test/in-memory-notifications-repository';
 import { SendNotification } from './send-notification';
-
-const notificationsInMemory: Notification[] = [];
-
-//Criando um repository fake para "SendNotification"
-const notificationsRepository = {
-  async create(notification: Notification) {
-    notificationsInMemory.push(notification);
-  },
-};
 
 describe('Send Notification', () => {
   test('it should be able send a notification', async () => {
-    const sendNotification = new SendNotification(notificationsRepository);
+    const notificationRepository = new InMemoryNotificationsRepository();
+
+    const sendNotification = new SendNotification(notificationRepository);
 
     const { notification } = await sendNotification.execute({
       recipientId: randomUUID(),
@@ -21,8 +14,11 @@ describe('Send Notification', () => {
       category: 'test',
     });
 
-    console.log(notificationsInMemory);
+    console.log(notificationRepository.notifications);
 
-    expect(notificationsInMemory).toHaveLength(1);
+    expect(notificationRepository.notifications).toHaveLength(1);
+
+    //Espero que a notificação "in memory" seja igual o retorno da SendNotification
+    expect(notificationRepository.notifications[0]).toEqual(notification);
   });
 });
