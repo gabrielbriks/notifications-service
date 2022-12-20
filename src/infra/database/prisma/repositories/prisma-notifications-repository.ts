@@ -7,6 +7,9 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaNotificationsRepository implements NotificationsRepository {
   constructor(private prisma: PrismaService) {}
+  countManyByRecipientID(recipientId: string): Promise<number> {
+    throw new Error('Method not implemented.');
+  }
 
   async findById(notificationId: string): Promise<Notification | null> {
     throw new Error('Method not implemented.');
