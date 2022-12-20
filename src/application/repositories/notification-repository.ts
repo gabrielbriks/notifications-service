@@ -7,4 +7,5 @@ export abstract class NotificationsRepository {
   //Se a notificação não existir retornamos null
   abstract findById(notificationId: string): Promise<Notification | null>;
   abstract save(notification: Notification): Promise<void>;
+  abstract countManyByRecipientID(recipientId: string): Promise<number>;
 }
