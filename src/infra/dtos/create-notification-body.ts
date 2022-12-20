@@ -4,18 +4,18 @@ import { IsNotEmpty, IsUUID, Length } from 'class-validator';
 export class CreateNotificationBody {
   @IsNotEmpty()
   @IsUUID()
-  recipientId!: string;
+  recipientId: string;
 
   @IsNotEmpty({
     message: 'A content é obrigatório.',
   })
   @Length(5, 240, {
-    message: 'O content deve ser ter no mínimo 5 e no maximo 240 caracteres.',
+    message: 'O content deve ser ter no mínimo 5 e no máximo 240 caracteres.',
   })
-  content!: string;
+  content: string;
 
   @IsNotEmpty({
     message: 'A category é obrigatório.',
   })
-  category!: string;
+  category: string;
 }
